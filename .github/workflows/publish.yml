@@ -20,5 +20,8 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: npm run release
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN }}
+      - name: Publish to NPM Registry
+        uses: JS-DevTools/npm-publish@v3
+        with:
+          token: ${{ secrets.NPM_AUTH_TOKEN }}
+          access: public
