@@ -29,11 +29,16 @@ jobs:
           node-version: "20"
           registry-url: https://registry.npmjs.org/
       - run: npm ci
-      - run: |
+      - name: Configure Git
+        run: |
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-      - run: npm run release
-      - run: git push --follow-tags origin master
-      - run: npm publish --access public
+
+      - name: Publish
+        run: |
+          npm run release
+          git push --follow-tags origin main
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
