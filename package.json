@@ -6,16 +6,15 @@
     "typescript": "^5.3.3"
   },
   "files": [
-    "dist/*"
+    "dist/*",
+    ".gitignore",
+    "README.md"
   ],
   "main": "dist/index.js",
   "name": "@headwayclan/tailwindcss",
   "scripts": {
     "build": "tsc",
-    "release": "standard-version && git push --follow-tags && npm publish"
+    "release": "standard-version && git push --follow-tags && npm publish --access public"
   },
-  "version": "1.0.0",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  }
+  "version": "1.0.0"
 }
