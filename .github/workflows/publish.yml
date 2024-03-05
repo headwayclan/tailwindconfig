@@ -6,11 +6,8 @@ on:
       - main
 
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      packages: write # allow GITHUB_TOKEN to publish packages
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -18,9 +15,22 @@ jobs:
           node-version: "20"
       - run: npm ci
       - run: npm run build
-      - run: npm run release
-      - name: Publish to NPM Registry
-        uses: JS-DevTools/npm-publish@v3
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          token: ${{ secrets.NPM_AUTH_TOKEN }}
-          access: public
+          node-version: "20"
+          registry-url: https://registry.npmjs.org/
+      - run: npm ci
+      - run: npm run release
+      - run: git push --follow-tags origin master
+      - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

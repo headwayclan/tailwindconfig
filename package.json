@@ -14,7 +14,7 @@
   "name": "@headwayclan/tailwindcss",
   "scripts": {
     "build": "tsc",
-    "release": "standard-version && git push --follow-tags"
+    "release": "standard-version"
   },
   "version": "1.0.0"
 }
