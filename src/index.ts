@@ -1,9 +1,11 @@
+import tailwindTypography from "@tailwindcss/typography";
 import type { Config } from "tailwindcss";
-import animatePlugin from "tailwindcss-animate";
-import { headwayclanPlugin } from "./plugin";
+import tailwindAnimate from "tailwindcss-animate";
 
-export const anishPreset = {
+import { headwayPlugin } from "./plugin";
+
+export const headwayPreset = {
   darkMode: ["class"],
   content: [],
-  plugins: [animatePlugin, headwayclanPlugin],
+  plugins: [tailwindAnimate, headwayPlugin, tailwindTypography],
 } satisfies Config;
